@@ -1,4 +1,4 @@
-package com.ebi.person.persons_api;
+package com.ebi.person;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
