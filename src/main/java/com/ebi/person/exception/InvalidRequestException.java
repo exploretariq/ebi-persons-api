@@ -13,12 +13,10 @@ public class InvalidRequestException extends BaseException {
 	/**
 	 * Constructor.
 	 *
-	 * @param errorCode
-	 *            Error code.
 	 * @param errorMessage
 	 *            The error message.
 	 */
-	public InvalidRequestException(String errorCode, String errorMessage) {
-		super(errorCode, errorMessage);
+	public InvalidRequestException(String errorMessage) {
+		super(errorMessage);
 	}
 }

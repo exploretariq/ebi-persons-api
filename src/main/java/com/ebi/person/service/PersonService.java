@@ -11,10 +11,14 @@ public interface PersonService {
 
 	public Person add(Person person);
 
-	public Iterable<Person> addAll(List<Person> persons);
+	public Person update(Person person);
 
 	public Page<Person> getAll(String seacrhString, Pageable pageable);
 
 	public Person getPersonById(String id);
+
+	public void delete(String personId);
+
+	public Iterable<Person> addAll(List<Person> persons);
 
 }

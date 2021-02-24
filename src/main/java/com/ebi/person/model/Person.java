@@ -1,6 +1,7 @@
 package com.ebi.person.model;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.ebi.person.common.CustomDateConverter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -63,21 +65,50 @@ public class Person {
 	@NotEmpty(message = "'last_name' cannot be empty")
 	@Size(max = 128, message = "'last_name' should be of max 128 characters")
 	private String lastName;
-	
+
 	/**
 	 * The age of the person.
 	 */
 	@Column
-	@Min(value = 1)
-	@Max(value = 190)
+	@Min(value = 1, message = "Minimum 'age' is 1")
+	@Max(value = 190, message = "Maximum 'age' is 190")
 	private Integer age;
 
 	/**
-	 * The favourite color of the person. TODO : This can be represented as enum if we have
-	 * a predefined colour palette available or as hexcode for performance improvement.
+	 * The favourite color of the person. TODO : This can be represented as enum if
+	 * we have a predefined colour palette available or as hexcode for performance
+	 * improvement.
 	 */
 	@Column
 	@JsonProperty("favourite_colour")
 	private String favouriteColour;
+	
+    /**
+     * The timestamp in which the field group is created.
+     */
+    @Column(name = "created_timestamp")
+    @Convert(converter = CustomDateConverter.class)
+    private Long creationInstant;
+
+    /**
+     * The creator of the field group.
+     */
+    @Column
+    @Size(max = 64, message = "'createdBy' should be of max 64 characters")
+    private String createdBy;
+
+    /**
+     * The timestamp in which the field group is last updated.
+     */
+    @Column(name = "updated_timestamp")
+    @Convert(converter = CustomDateConverter.class)
+    private Long updatedInstant;
+
+    /**
+     * The last updater of the field group.
+     */
+    @Column
+    @Size(max = 64, message = "'updatedBy' should be of max 64 characters")
+    private String updatedBy;
 
 }

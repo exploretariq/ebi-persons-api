@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.ebi.person.common.Constants;
 import com.ebi.person.exception.ResourceNotFoundException;
 import com.ebi.person.model.Person;
 import com.ebi.person.repository.PersonRepository;
@@ -31,13 +32,36 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person add(Person person) {
 		validate(person);
+		String createdBy = person.getCreatedBy();
+		if (createdBy == null || createdBy.isEmpty()) {
+			createdBy = Constants.DEFAULT_USER;
+		}
+		person.setCreatedBy(createdBy);
+		String updatedBy = person.getUpdatedBy();
+		if (updatedBy == null || updatedBy.isEmpty()) {
+			updatedBy = Constants.DEFAULT_USER;
+		}
+		person.setUpdatedBy(updatedBy);
+		long currentTime = System.currentTimeMillis();
+		if (person.getCreationInstant() == null) {
+			person.setCreationInstant(currentTime);
+		}
+		if (person.getUpdatedInstant() == null) {
+			person.setUpdatedInstant(currentTime);
+		}
 		return personRepository.save(person);
 	}
 
 	@Override
-	public Iterable<Person> addAll(List<Person> persons) {
-		// validate(person);
-		return personRepository.saveAll(persons);
+	public Person update(Person person) {
+		Person existingPerson = getPersonById(person.getId());
+		person.setCreationInstant(existingPerson.getCreationInstant());
+		person.setCreatedBy(existingPerson.getCreatedBy());
+		person.setUpdatedInstant(System.currentTimeMillis());
+		if (person.getUpdatedBy() == null || person.getUpdatedBy().isEmpty()) {
+			person.setUpdatedBy(Constants.DEFAULT_USER);
+		}
+		return personRepository.save(person);
 	}
 
 	public Page<Person> getAll(String searchString, Pageable pageable) {
@@ -56,6 +80,18 @@ public class PersonServiceImpl implements PersonService {
 			return optional.get();
 		}
 		throw new ResourceNotFoundException(id);
+	}
+
+	@Override
+	public void delete(String personId) {
+		Person person = getPersonById(personId);
+		personRepository.delete(person);
+	}
+
+	@Override
+	public Iterable<Person> addAll(List<Person> persons) {
+		// validate(person);
+		return personRepository.saveAll(persons);
 	}
 
 }
