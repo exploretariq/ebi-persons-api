@@ -23,7 +23,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private static final String[] AUTH_WHITELIST = { "/v2/api-docs", "/swagger-resources", "/swagger-resources/**",
 			"/actuator", "/actuator/**", "/configuration/ui", "/configuration/security", "/swagger-ui/","/swagger-ui/**",
-			"/webjars/**" ,"/h2-console"};
+			"/webjars/**" ,"/h2-console/", "/h2-console/**"};
 
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
