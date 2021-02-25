@@ -99,7 +99,7 @@ There is a very basic Nginx load balancer capabale of distributing the API load.
 
 The application is CICD integrated end to end starting from git commits to Heroku deployment.
 
-![alt text](https://github.com/exploretariq/ebi-persons-api/Ebi-persons-cicd.png?raw=true)
+![alt text](https://github.com/exploretariq/ebi-persons-api/blob/master/Ebi-persons-cicd.png?raw=true)
 
 The tools used are [github](https://github.com/), [travis](https://travis-ci.com/), [docker](https://hub.docker.com/), [maven](https://maven.apache.org/), [codecov](https://codecov.io/) and [heroku](https://www.heroku.com/).
 
