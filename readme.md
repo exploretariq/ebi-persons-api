@@ -48,9 +48,7 @@ An application is already deployed [here](https://dashboard.heroku.com/apps/ebi-
 
 ## 2. Testing the application
 
-[Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). 
-
-Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku nvironment.
+[Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku nvironment.
 
 Once the setup is done. Please read the API documentation of persons [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/person-controller).
 
@@ -60,49 +58,49 @@ Since the entire application is **secured with JWT token**, you will not be able
 2. Invoke User Login endpoint from the collection. This will return Authorization Bearer token in the header response.
 3. Use this Bearer token in the Authorization Header of any CRUD endpoints of Person.
     
-## 3.Features
+## 3. Features
 
 ### 3.1. Scalability
 
 The persons api is capabale of horizontal scaling which uses the docker compose feature. The details are mentioned in the deployment section.
 
-### 3.2 Loadbalancing
+### 3.2. Loadbalancing
 
 There is a very basic Nginx load balancer capabale of distributing the API load. The details are mentioned in the deployment section.
 
-### 3.3 CICD Integration
+### 3.3. CICD Integration
 
 The application is CICD integrated end to end starting from git commits to Heroku deployment. The tools used are [github](https://github.com/), [travis](https://travis-ci.com/), [docker](https://hub.docker.com/), [maven](https://maven.apache.org/), [codecov](https://codecov.io/) and [heroku](https://www.heroku.com/).
 
-### 3.4 Swagger API Documentation
+### 3.4. Swagger API Documentation
 You can access the application **API docs** [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/)
 
-### 3.5 In Memory Database support
+### 3.5. In Memory Database support
 
 H2 In memory Embedded Data base is used for the DB operations. You can find the h2 console [here](https://ebi-persons-api.herokuapp.com/ebi/h2-console). 
 
-### 3.6 Effective Search API
+### 3.6. Effective Search API
 
 The code base is generic enough to handle effective search operation based on RSQL parsing.
 Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this
 
-### 3.7 Spring Security
+### 3.7. Spring Security
 
 The application is integrated with Spring security providing the basic authentication using expiring **JWT Bearer tokens**.
 
-### 3.8 Application Monitoring with Actuators
+### 3.8. Application Monitoring with Actuators
 
 The application health and other metrics can be monitored using Spring actuators. The documetnation is available [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/operation-handler). A sample endpoint name in the postman is **Check Application Metrics**
 
-### 3.9 Dynamic log level configuration.
+### 3.9. Dynamic log level configuration.
 
 Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Check Log Levels**
 
-### 3.10 Minimized code vulnerabilty 
+### 3.. Minimized code vulnerabilty 
 
 Usage of frameworks wherever applicable. This would reduce code vulnerabilty. Example : Usage of spring data would remove vulnerabilty attacks like SQL injection.
 
-### 3.11 Unit testing
+### 3.11. Unit testing
 
 Proper Unit testing for the important components of the app. You can see the coverage report [here](https://codecov.io/gh/exploretariq/ebi-persons-api/tree/master/src/main/java/com/ebi/person)
 
@@ -133,8 +131,4 @@ Persons api uses a number of open source projects to work properly:
 6. DB Connection pooling is not yet done.
 7. Integration with code analysis tool like Sonar.
 8. Better Java Documentation.
-
-
-
-
-
+9. So many more!!!!! :)
