@@ -2,6 +2,8 @@ package com.ebi.person.exception;
 
 /**
  * Exception class for an invalid request.
+ * 
+ * @author sulaimat
  */
 public class InvalidRequestException extends BaseException {
 

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ebi.person.model.User;
 import com.ebi.person.repository.UserRepository;
 
+/**
+ * @author sulaimat
+ *
+ */
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {

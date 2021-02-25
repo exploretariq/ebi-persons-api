@@ -18,16 +18,17 @@ import com.ebi.person.rsql.CustomRsqlVisitor;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 
+/**
+ * Service implementation class for {@link Person} resource.
+ * 
+ * @author sulaimat
+ *
+ */
 @Service
 public class PersonServiceImpl implements PersonService {
 
 	@Autowired
 	private PersonRepository personRepository;
-
-	private void validate(Person person) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Person add(Person person) {
@@ -48,6 +49,7 @@ public class PersonServiceImpl implements PersonService {
 		return personRepository.save(person);
 	}
 
+	@Override
 	public Page<Person> getAll(String searchString, Pageable pageable) {
 		if (searchString == null || searchString.isEmpty()) {
 			return personRepository.findAll(pageable);
@@ -58,6 +60,7 @@ public class PersonServiceImpl implements PersonService {
 
 	}
 
+	@Override
 	public Person getPersonById(String id) {
 		Optional<Person> optional = personRepository.findById(id);
 		if (optional.isPresent()) {
@@ -80,6 +83,12 @@ public class PersonServiceImpl implements PersonService {
 		return personRepository.saveAll(persons);
 	}
 
+	/**
+	 * Populate auto fill details.
+	 * 
+	 * @param person
+	 *            the person.
+	 */
 	private void populatePersonDetails(Person person) {
 		String createdBy = person.getCreatedBy();
 		if (createdBy == null || createdBy.isEmpty()) {
@@ -98,6 +107,11 @@ public class PersonServiceImpl implements PersonService {
 		if (person.getUpdatedInstant() == null) {
 			person.setUpdatedInstant(currentTime);
 		}
+	}
+
+	private void validate(Person person) {
+		// TODO Add Validation rules based on business logic.
+
 	}
 
 }

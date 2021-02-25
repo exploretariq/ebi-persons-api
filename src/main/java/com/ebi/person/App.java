@@ -7,7 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 
  * Main class for loading the spring boot application.
+ * 
+ * @author sulaimat
  */
 @Slf4j
 @SpringBootApplication

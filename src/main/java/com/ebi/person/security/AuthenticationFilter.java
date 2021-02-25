@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Authentication filter class for login endpoint.
+ * 
+ * @author sulaimat
+ *
+ */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private AuthenticationManager authenticationManager;
 

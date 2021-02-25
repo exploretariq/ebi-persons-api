@@ -1,41 +1,42 @@
 package com.ebi.person.common;
 
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.Date;
 
 /**
  * Custom date to long converter for JPA.
+ * 
+ * @author sulaimat
  */
 @Converter
 public class CustomDateConverter implements AttributeConverter<Long, Date> {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Date convertToDatabaseColumn(Long time) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Date convertToDatabaseColumn(Long time) {
 
-        Date value = null;
-        if (time != null) {
-            value = new Date(time);
-        }
+		Date value = null;
+		if (time != null) {
+			value = new Date(time);
+		}
 
-        return value;
-    }
+		return value;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Long convertToEntityAttribute(Date date) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Long convertToEntityAttribute(Date date) {
 
-        Long value = null;
-        if (date != null) {
-            value = date.getTime();
-        }
+		Long value = null;
+		if (date != null) {
+			value = date.getTime();
+		}
 
-        return value;
-    }
+		return value;
+	}
 }

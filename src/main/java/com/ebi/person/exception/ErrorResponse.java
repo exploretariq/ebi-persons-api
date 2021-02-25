@@ -6,6 +6,8 @@ import lombok.Data;
 
 /**
  * Error response class.
+ * 
+ * @author sulaimat
  */
 @Data
 public class ErrorResponse implements Serializable {

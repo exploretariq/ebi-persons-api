@@ -1,6 +1,5 @@
 package com.ebi.person.exception;
 
-
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -10,9 +9,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The exception handler responsible for converting exceptions to Http error
+ * codes.
+ * 
+ * @author sulaimat
+ *
+ */
 @ControllerAdvice
 @Slf4j
 public class EbiExceptionHandler {

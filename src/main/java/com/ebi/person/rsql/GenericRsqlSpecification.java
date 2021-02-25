@@ -12,13 +12,18 @@ import org.springframework.data.jpa.domain.Specification;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 
+/**
+ * RSQL Specification for handling generic operators.
+ * 
+ * @author sulaimat
+ *
+ * @param <T>
+ */
 public class GenericRsqlSpecification<T> implements Specification<T> {
 
-	/**
-	 * 
-	 */
+	/** serial version id. */
 	private static final long serialVersionUID = -6090069725078435169L;
-	
+
 	private String property;
 	private ComparisonOperator operator;
 	private List<String> arguments;
@@ -75,8 +80,6 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
 
 		return null;
 	}
-
-	// === private
 
 	private List<Object> castArguments(final Root<T> root) {
 

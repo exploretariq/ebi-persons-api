@@ -5,6 +5,12 @@ import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
 import java.util.Arrays;
 
+/**
+ * Rsql basic search opearations enum.
+ * 
+ * @author sulaimat
+ *
+ */
 public enum RsqlSearchOperation {
 
 	EQUAL(RSQLOperators.EQUAL), NOT_EQUAL(RSQLOperators.NOT_EQUAL), GREATER_THAN(

@@ -13,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * Authorization filter for bearer tokens.
+ * 
+ * @author sulaimat
+ *
+ */
 public class AuthorizationFilter extends BasicAuthenticationFilter
 {
     public AuthorizationFilter(AuthenticationManager authenticationManager)

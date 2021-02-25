@@ -23,6 +23,12 @@ import com.ebi.person.exception.ResourceIdConflictException;
 import com.ebi.person.model.Person;
 import com.ebi.person.service.PersonService;
 
+/**
+ * Test class for {@link PersonController}.
+ * 
+ * @author sulaimat
+ *
+ */
 @RunWith(SpringRunner.class)
 public class PersonControllerTest {
 

@@ -28,6 +28,12 @@ import com.ebi.person.exception.ResourceNotFoundException;
 import com.ebi.person.model.Person;
 import com.ebi.person.repository.PersonRepository;
 
+/**
+ * Test class for {@link PersonServiceImpl}.
+ * 
+ * @author sulaimat
+ *
+ */
 @RunWith(SpringRunner.class)
 public class PersonServiceImplTest {
 

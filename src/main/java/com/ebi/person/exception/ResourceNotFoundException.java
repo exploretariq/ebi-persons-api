@@ -2,6 +2,8 @@ package com.ebi.person.exception;
 
 /**
  * Exception class for non-existent resource.
+ * 
+ * @author sulaimat
  */
 public class ResourceNotFoundException extends BaseException {
 

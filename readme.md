@@ -84,23 +84,27 @@ H2 In memory Embedded Data base is used for the DB operations. You can find the 
 The code base is generic enough to handle effective search operation based on RSQL parsing.
 Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this
 
-### 3.7. Spring Security
+### 3.7. Effective Add Persons batch API
+
+Add multiple persons is supported with batch insert on DB.
+
+### 3.8. Spring Security
 
 The application is integrated with Spring security providing the basic authentication using expiring **JWT Bearer tokens**.
 
-### 3.8. Application Monitoring with Actuators
+### 3.9. Application Monitoring with Actuators
 
 The application health and other metrics can be monitored using Spring actuators. The documetnation is available [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/operation-handler). A sample endpoint name in the postman is **Check Application Metrics**
 
-### 3.9. Dynamic log level configuration.
+### 3.10. Dynamic log level configuration.
 
 Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Check Log Levels**
 
-### 3.. Minimized code vulnerabilty 
+### 3.11. Minimized code vulnerabilty 
 
 Usage of frameworks wherever applicable. This would reduce code vulnerabilty. Example : Usage of spring data would remove vulnerabilty attacks like SQL injection.
 
-### 3.11. Unit testing
+### 3.12. Unit testing
 
 Proper Unit testing for the important components of the app. You can see the coverage report [here](https://codecov.io/gh/exploretariq/ebi-persons-api/tree/master/src/main/java/com/ebi/person)
 

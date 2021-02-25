@@ -4,6 +4,8 @@ import lombok.Getter;
 
 /**
  * Base exception class.
+ * 
+ * @author sulaimat
  */
 public abstract class BaseException extends RuntimeException {
 

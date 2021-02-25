@@ -1,5 +1,7 @@
 package com.ebi.person.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -27,6 +29,8 @@ import lombok.experimental.Accessors;
 
 /**
  * A POJO representing a person resource with attributes defined for its own.
+ * 
+ * @author sulaimat
  */
 @Entity
 @Table(name = "persons")
@@ -36,7 +40,12 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 @JsonInclude(Include.NON_NULL)
 @NoArgsConstructor
-public class Person {
+public class Person implements Serializable {
+
+	/**
+     * Serial version ID.
+     */
+	private static final long serialVersionUID = -1708705589246716509L;
 
 	/**
 	 * Segment ID.

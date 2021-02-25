@@ -9,6 +9,8 @@ import org.hibernate.id.IdentifierGenerator;
 
 /**
  * UUID generator strategy.
+ * 
+ * @author sulaimat
  */
 public class UUIDGeneratorStrategy implements IdentifierGenerator {
 

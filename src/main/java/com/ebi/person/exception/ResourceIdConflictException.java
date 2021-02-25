@@ -2,6 +2,8 @@ package com.ebi.person.exception;
 
 /**
  * Exception class for resource ID conflict.
+ * 
+ * @author sulaimat
  */
 public class ResourceIdConflictException extends BaseException {
 
