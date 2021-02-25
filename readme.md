@@ -39,24 +39,51 @@ docker pull tariqsulaiman/ebi-persons-api
 docker run -p 8080:8080 tariqsulaiman/ebi-persons-api
 docker ps
 ```
-### 1.3. Existing deployment application with CICD
+### 1.3. Hosted Application with CICD
 
-An application is already deployed [here](https://dashboard.heroku.com/apps/ebi-persons-api) with the CICD [process](https://travis-ci.com/exploretariq/ebi-persons-api). 
+An application is already deployed in heroku environment with the CICD [process](https://travis-ci.com/exploretariq/ebi-persons-api). 
 
 1. You can access the application **API docs** [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/)
-2. You can see the **code coverage** [here](https://codecov.io/gh/exploretariq/ebi-persons-api/tree/master/src/main/java/com/ebi/person)
+2. You can see the **code coverage** [here](https://codecov.io/gh/exploretariq/ebi-persons-api)
 
 ## 2. Testing the application
 
-[Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku nvironment.
+[Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku environment.
 
 Once the setup is done. Please read the API documentation of persons [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/person-controller).
 
 Since the entire application is **secured with JWT token**, you will not be able to invoke person endpoints from the postman. Please follow the steps below for extensive testing.
 
 1. Invoke Signup User endpoint from the collection. This will create a registered user in the system.
+```sh
+curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/users/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "ebi",
+    "password": "ebi123"
+}'
+```
 2. Invoke User Login endpoint from the collection. This will return Authorization Bearer token in the header response.
+```sh
+curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username": "ebi",
+    "password": "ebi123"
+}'
+```
 3. Use this Bearer token in the Authorization Header of any CRUD endpoints of Person.
+```sh
+curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name": "Sarah",
+    "last_name": "Robinson", 
+    "age": "36", 
+    "favourite_colour": "blue"
+}'
+```
     
 ## 3. Features
 
@@ -70,7 +97,12 @@ There is a very basic Nginx load balancer capabale of distributing the API load.
 
 ### 3.3. CICD Integration
 
-The application is CICD integrated end to end starting from git commits to Heroku deployment. The tools used are [github](https://github.com/), [travis](https://travis-ci.com/), [docker](https://hub.docker.com/), [maven](https://maven.apache.org/), [codecov](https://codecov.io/) and [heroku](https://www.heroku.com/).
+The application is CICD integrated end to end starting from git commits to Heroku deployment.
+
+![alt text](https://github.com/exploretariq/ebi-persons-api/Ebi-persons-cicd.png.jpg?raw=true)
+
+The tools used are [github](https://github.com/), [travis](https://travis-ci.com/), [docker](https://hub.docker.com/), [maven](https://maven.apache.org/), [codecov](https://codecov.io/) and [heroku](https://www.heroku.com/).
+
 
 ### 3.4. Swagger API Documentation
 You can access the application **API docs** [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/)
@@ -83,6 +115,10 @@ H2 In memory Embedded Data base is used for the DB operations. You can find the 
 
 The code base is generic enough to handle effective search operation based on RSQL parsing.
 Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this
+```sh
+curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons?search=firstName==Sarah;age%3E=20&page=0&size=2' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw'
+```
 
 ### 3.7. Effective Add Persons batch API
 
@@ -98,7 +134,13 @@ The application health and other metrics can be monitored using Spring actuators
 
 ### 3.10. Dynamic log level configuration.
 
-Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Check Log Levels**
+Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Configure Log Levels**
+
+```sh
+curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/actuator/loggers/com.ebi.person' \
+--header 'Content-Type: application/json' \
+--data-raw '{"configuredLevel": "INFO"}'
+```
 
 ### 3.11. Minimized code vulnerabilty 
 
@@ -135,4 +177,4 @@ Persons api uses a number of open source projects to work properly:
 6. DB Connection pooling is not yet done.
 7. Integration with code analysis tool like Sonar.
 8. Better Java Documentation.
-9. So many more!!!!! :)
+9. Many more!!!!! :)
