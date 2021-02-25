@@ -32,23 +32,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person add(Person person) {
 		validate(person);
-		String createdBy = person.getCreatedBy();
-		if (createdBy == null || createdBy.isEmpty()) {
-			createdBy = Constants.DEFAULT_USER;
-		}
-		person.setCreatedBy(createdBy);
-		String updatedBy = person.getUpdatedBy();
-		if (updatedBy == null || updatedBy.isEmpty()) {
-			updatedBy = Constants.DEFAULT_USER;
-		}
-		person.setUpdatedBy(updatedBy);
-		long currentTime = System.currentTimeMillis();
-		if (person.getCreationInstant() == null) {
-			person.setCreationInstant(currentTime);
-		}
-		if (person.getUpdatedInstant() == null) {
-			person.setUpdatedInstant(currentTime);
-		}
+		populatePersonDetails(person);
 		return personRepository.save(person);
 	}
 
@@ -90,8 +74,30 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Iterable<Person> addAll(List<Person> persons) {
-		// validate(person);
+		persons.parallelStream().forEach(person -> {
+			populatePersonDetails(person);
+		});
 		return personRepository.saveAll(persons);
+	}
+
+	private void populatePersonDetails(Person person) {
+		String createdBy = person.getCreatedBy();
+		if (createdBy == null || createdBy.isEmpty()) {
+			createdBy = Constants.DEFAULT_USER;
+		}
+		person.setCreatedBy(createdBy);
+		String updatedBy = person.getUpdatedBy();
+		if (updatedBy == null || updatedBy.isEmpty()) {
+			updatedBy = Constants.DEFAULT_USER;
+		}
+		person.setUpdatedBy(updatedBy);
+		long currentTime = System.currentTimeMillis();
+		if (person.getCreationInstant() == null) {
+			person.setCreationInstant(currentTime);
+		}
+		if (person.getUpdatedInstant() == null) {
+			person.setUpdatedInstant(currentTime);
+		}
 	}
 
 }
