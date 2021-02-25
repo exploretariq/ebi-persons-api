@@ -132,6 +132,10 @@ The application is integrated with Spring security providing the basic authentic
 
 The application health and other metrics can be monitored using Spring actuators. The documetnation is available [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/operation-handler). A sample endpoint name in the postman is **Check Application Metrics**
 
+```sh
+curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/actuator/metrics/system.cpu.usage'
+```
+
 ### 3.10. Dynamic log level configuration.
 
 Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Configure Log Levels**
