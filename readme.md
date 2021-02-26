@@ -14,6 +14,7 @@ Persons api requires [Docker](https://docs.docker.com/engine/install/) and [Git]
 mkdir workspace
 cd workspace
 git clone https://github.com/exploretariq/ebi-persons-api.git
+cd ebi-persons-api
 docker build -t persons-api .
 ```
 
