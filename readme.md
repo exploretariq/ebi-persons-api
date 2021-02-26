@@ -90,7 +90,7 @@ curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/person
 
 ### 3.1. Scalability
 
-The persons api application is capabale of horizontal scaling which uses the docker compose feature. The details are mentioned in the deployment section 1.1. But the application is not truely scalable since database is not persistent. By introducing a proper distributed persistent database, we can overcome this limitation.
+The persons api application is capabale of horizontal scaling which uses the docker compose feature. The details are mentioned in the deployment section 1.1. But the application is not truely scalable since embedded database is used. By introducing a standalone distributed database, we can overcome this limitation.
 
 ### 3.2. Loadbalancing
 
