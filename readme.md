@@ -49,11 +49,11 @@ An application is already deployed in heroku environment with the [travis CICD](
 
 ## 2. Accessing/Testing the API
 
-[Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku environment.
+[Postman](https://www.postman.com/downloads/) can be used for accessing/testing the persons-api application. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku environment.
 
 Once the setup is done. Please read the API documentation of persons [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/person-controller).
 
-Since the entire application is **secured with JWT token**, you will not be able to invoke person endpoints from the postman. Please follow the steps below for extensive testing.
+Since the entire application is **secured with JWT token**, you will not be able to invoke person endpoints from the postman. Please follow the steps below for accessing the API.
 
 1. Invoke **Signup User** endpoint from the collection. This will create a registered user in the system.
 ```sh
@@ -73,7 +73,7 @@ curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/log
     "password": "ebi123"
 }'
 ```
-3. Use this **Bearer token in the Authorization Header** to access Person CRUD endpoints
+3. Use this **Bearer token in the Authorization Header** to access person CRUD endpoints
 ```sh
 curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw' \
