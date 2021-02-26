@@ -47,7 +47,7 @@ An application is already deployed in heroku environment with the [travis CICD](
 1. You can access the application **API docs** [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/)
 2. You can see the **code coverage** [here](https://codecov.io/gh/exploretariq/ebi-persons-api)
 
-## 2. Manual testing the application
+## 2. Accessing/Testing the API
 
 [Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku environment.
 
@@ -55,27 +55,27 @@ Once the setup is done. Please read the API documentation of persons [here](http
 
 Since the entire application is **secured with JWT token**, you will not be able to invoke person endpoints from the postman. Please follow the steps below for extensive testing.
 
-1. Invoke Signup User endpoint from the collection. This will create a registered user in the system.
+1. Invoke **Signup User** endpoint from the collection. This will create a registered user in the system.
 ```sh
-curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/users/signup' \
+curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/users/signup' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username": "ebi",
     "password": "ebi123"
 }'
 ```
-2. Invoke User Login endpoint from the collection. This will return Authorization Bearer token in the header response.
+2. Invoke **User Login** endpoint from the collection. This will return Authorization Bearer token in the header response.
 ```sh
-curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/login' \
+curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username": "ebi",
     "password": "ebi123"
 }'
 ```
-3. Use this Bearer token in the Authorization Header of any CRUD endpoints of Person.
+3. Use this **Bearer token in the Authorization Header** to access Person CRUD endpoints
 ```sh
-curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
+curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -117,7 +117,7 @@ H2 In memory Embedded Data base is used for the DB operations. You can find the 
 The code base is generic enough to handle effective search operation based on RSQL parsing.
 Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this.
 ```sh
-curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons?search=firstName==Sarah;age%3E=20&page=0&size=2' \
+curl -v --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons?search=firstName==Sarah;age%3E=20&page=0&size=2' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw'
 ```
 
@@ -126,7 +126,7 @@ curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons
 Mutiple persons can be addded into the system in a single API call. Implemented JDBC batching for achieving this. Please refer **Add Persons** endpoint in the postman collection.
 
 ```sh
-curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
+curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkxIiwiZXhwIjoxNjE0MTc3ODc2fQ.snUUK2Xo2K0NS4gzu0kiK-SsEu8Y1Cd8BRCbsjUSX8HjxYWMMn0LMJT46Py08DAEROZPOmCfw84BVH9w4Um6zA' \
 --header 'Content-Type: application/json' \
 --data-raw '[
@@ -153,7 +153,7 @@ The application is integrated with Spring security providing the basic authentic
 The application health and other metrics can be monitored using Spring actuators. The documetnation is available [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/#/operation-handler). A sample endpoint name in the postman is **Check Application Metrics**
 
 ```sh
-curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/actuator/metrics/system.cpu.usage'
+curl -v --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/actuator/metrics/system.cpu.usage'
 ```
 
 ### 3.10. Dynamic log level configuration.
@@ -161,7 +161,7 @@ curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/actuato
 Used spring boot actuators to dynamically confiure log levels for the application without down time. The endpoint for the same in the postman is **Configure Log Levels**
 
 ```sh
-curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/actuator/loggers/com.ebi.person' \
+curl -v --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/actuator/loggers/com.ebi.person' \
 --header 'Content-Type: application/json' \
 --data-raw '{"configuredLevel": "INFO"}'
 ```
