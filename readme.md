@@ -194,11 +194,12 @@ Persons api uses a number of open source projects to work properly:
 ## 5. Limitations/To be done
 
 1. Authorization is not yet done.
-2. JUnit coverage has to be improved
-3. Auditing of API operations. 
-4. Handle Soft deletes.
-5. No API throtting tool
-6. DB Connection pooling is not yet done.
-7. Integration with code analysis tool like Sonar.
-8. Better Java Documentation.
-9. Application api is scalable but it is not properly distributed since embedded in-memory database is used.
+2. JUnit coverage has to be improved.
+3. Need more manual testing.
+4. Auditing of API operations. 
+5. Handle Soft deletes.
+6. No API throtting tool
+7. DB Connection pooling is not yet done.
+8. Integration with code analysis tool like Sonar.
+9. Better Java Documentation.
+10. Application api is scalable but it is not properly distributed since embedded in-memory database is used.
