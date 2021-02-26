@@ -190,7 +190,7 @@ Persons api uses a number of open source projects to work properly:
 - jib-maven-plugin 2.2.0
 - heroku-maven-plugin 3.0.2
 
-## 5. Limitations/Work in Progress
+## 5. Limitations/To be done
 
 1. Authorization is not yet done.
 2. JUnit coverage has to be improved
@@ -200,3 +200,4 @@ Persons api uses a number of open source projects to work properly:
 6. DB Connection pooling is not yet done.
 7. Integration with code analysis tool like Sonar.
 8. Better Java Documentation.
+9. Application api is scalable but it is not properly distributed since embedded in-memory database is used.
