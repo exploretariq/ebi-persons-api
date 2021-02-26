@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ebi.person.common.Constants;
 import com.ebi.person.exception.ResourceIdConflictException;
 import com.ebi.person.model.Person;
 import com.ebi.person.service.PersonService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -48,7 +51,8 @@ public class PersonController {
 	 * @return the added person.
 	 */
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Person> add(@Valid @RequestBody Person person) {
+	@ApiOperation(value = "Adds a person")
+	public ResponseEntity<Person> add(@Valid @RequestBody @ApiParam(value = Constants.PERSON_JSON) Person person) {
 
 		validate(person);
 		Person added = personService.add(person);
@@ -64,6 +68,7 @@ public class PersonController {
 	 * @return the udpated person.
 	 */
 	@PutMapping(path = "/{personId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Update a person")
 	public ResponseEntity<Person> update(@Valid @RequestBody Person person, @PathVariable("personId") String personId) {
 
 		validateUpdate(personId, person);
@@ -81,7 +86,9 @@ public class PersonController {
 	 *            the pageable info
 	 * @return the page of persons.
 	 */
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Views a list of persons based on search string and pagination parameters")
 	public Page<Person> getAllUsers(@RequestParam(value = "search", required = false) String search,
 			Pageable pageable) {
 		return personService.getAll(search, pageable);
@@ -95,6 +102,7 @@ public class PersonController {
 	 * @return the person.
 	 */
 	@GetMapping(path = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get person by id")
 	public ResponseEntity<Person> getById(@PathVariable("personId") String personId) {
 		Person person = personService.getPersonById(personId);
 		return new ResponseEntity<>(person, HttpStatus.OK);
@@ -108,6 +116,7 @@ public class PersonController {
 	 * @return void.
 	 */
 	@DeleteMapping(path = "/{personId}")
+	@ApiOperation(value = "Delete person by id")
 	public ResponseEntity<Void> delete(@PathVariable("personId") String personId) {
 		personService.delete(personId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -121,7 +130,9 @@ public class PersonController {
 	 * @return the added persons.
 	 */
 	@PostMapping(path = "/batch", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Iterable<Person>> addAll(@Valid @RequestBody Person[] persons) {
+	@ApiOperation(value = "Add mutiple persons")
+	public ResponseEntity<Iterable<Person>> addAll(
+			@Valid @RequestBody @ApiParam(value = Constants.PERSON_JSON_ARRAY) Person[] persons) {
 		log.info("Persons batch call");
 		validate(persons);
 		Iterable<Person> addedPersons = personService.addAll(Arrays.asList(persons));
@@ -149,8 +160,10 @@ public class PersonController {
 	/**
 	 * Validates the person id against the person resource.
 	 * 
-	 * @param personId the person id.
-	 * @param person the person object.
+	 * @param personId
+	 *            the person id.
+	 * @param person
+	 *            the person object.
 	 */
 	private void validateUpdate(String personId, Person person) {
 		if (!personId.equals(person.getId())) {

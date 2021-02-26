@@ -30,9 +30,9 @@ docker-compose up --scale persons-api=3
 docker ps
 ```
 
-### 1.2. Deploy locally with the existing CICD build 
+### 1.2. Deploy locally with the prebuilt image
 
-You can find the existing docker image [here](https://hub.docker.com/repository/docker/tariqsulaiman/ebi-persons-api) which is coming from the CICD process [here](https://travis-ci.com/exploretariq/ebi-persons-api)
+You can find the existing docker image [here](https://hub.docker.com/repository/docker/tariqsulaiman/ebi-persons-api) built using the [travis CICD](https://travis-ci.com/exploretariq/ebi-persons-api)
 
 ```sh
 docker pull tariqsulaiman/ebi-persons-api
@@ -41,12 +41,12 @@ docker ps
 ```
 ### 1.3. Hosted Application with CICD
 
-An application is already deployed in heroku environment with the CICD [process](https://travis-ci.com/exploretariq/ebi-persons-api). 
+An application is already deployed in heroku environment with the [travis CICD](https://travis-ci.com/exploretariq/ebi-persons-api). 
 
 1. You can access the application **API docs** [here](https://ebi-persons-api.herokuapp.com/ebi/swagger-ui/)
 2. You can see the **code coverage** [here](https://codecov.io/gh/exploretariq/ebi-persons-api)
 
-## 2. Testing the application
+## 2. Manual testing the application
 
 [Postman](https://www.postman.com/downloads/) can be used for testing the persons-api application extensively. Import the postman [collection](https://www.getpostman.com/collections/0bbb6cce4df1fa5f4787). Create 2 environments in the postman(local and heroku) and define the variable **EBI_PERSONS_API** as **localhost:8080** for local env and as **https://ebi-persons-api.herokuapp.com** for heroku environment.
 
@@ -89,15 +89,15 @@ curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/person
 
 ### 3.1. Scalability
 
-The persons api is capabale of horizontal scaling which uses the docker compose feature. The details are mentioned in the deployment section.
+The persons api application is capabale of horizontal scaling which uses the docker compose feature. The details are mentioned in the deployment section 1.1. But the application is not truely scalable since database is not persistent. By introducing a proper distributed persistent database, we can overcome this limitation.
 
 ### 3.2. Loadbalancing
 
-There is a very basic Nginx load balancer capabale of distributing the API load. The details are mentioned in the deployment section.
+There is a very basic Nginx load balancer capabale of distributing the API load. The details are mentioned in the deployment section 1.1.
 
 ### 3.3. CICD Integration
 
-The application is CICD integrated end to end starting from git commits to Heroku deployment.
+The application is [travis CICD](https://travis-ci.com/exploretariq/ebi-persons-api) integrated end to end starting from git push to Heroku deployment.
 
 ![alt text](https://github.com/exploretariq/ebi-persons-api/blob/master/Ebi-persons-cicd.png?raw=true)
 
@@ -114,7 +114,7 @@ H2 In memory Embedded Data base is used for the DB operations. You can find the 
 ### 3.6. Effective Search API
 
 The code base is generic enough to handle effective search operation based on RSQL parsing.
-Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this
+Also pagination and sorting is supported. Please refer **Get Persons - Age & First Name filter** endpoint in the postman collection for more details on this.
 ```sh
 curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons?search=firstName==Sarah;age%3E=20&page=0&size=2' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkiLCJleHAiOjE2MTQyNzc3NzB9.eOE853zVkT7i5SmuNBJrj0Dp9XVUMS6W4xzaEBBoz6Cht10BaQ6WEEFe3PA2ZPB7IClu16tEvI9z5KySrxOviw'
@@ -122,8 +122,27 @@ curl --location --request GET 'https://ebi-persons-api.herokuapp.com/ebi/persons
 
 ### 3.7. Effective Add Persons batch API
 
-Add multiple persons is supported with batch insert on DB.
+Mutiple persons can be addded into the system in a single API call. Implemented JDBC batching for achieving this. Please refer **Add Persons** endpoint in the postman collection.
 
+```sh
+curl --location --request POST 'https://ebi-persons-api.herokuapp.com/ebi/persons' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlYmkxIiwiZXhwIjoxNjE0MTc3ODc2fQ.snUUK2Xo2K0NS4gzu0kiK-SsEu8Y1Cd8BRCbsjUSX8HjxYWMMn0LMJT46Py08DAEROZPOmCfw84BVH9w4Um6zA' \
+--header 'Content-Type: application/json' \
+--data-raw '[
+    {
+        "first_name": "Sarah",
+        "last_name": "Robinson", 
+        "age": "54", 
+        "favourite_colour": "blue"
+    },
+    {
+        "first_name": "Jos",
+        "last_name": "Butler", 
+        "age": "26",
+        "favourite_colour": "black"
+    }
+]'
+```
 ### 3.8. Spring Security
 
 The application is integrated with Spring security providing the basic authentication using expiring **JWT Bearer tokens**.
@@ -181,4 +200,3 @@ Persons api uses a number of open source projects to work properly:
 6. DB Connection pooling is not yet done.
 7. Integration with code analysis tool like Sonar.
 8. Better Java Documentation.
-9. Many more!!!!! :)
